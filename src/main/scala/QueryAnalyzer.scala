@@ -19,7 +19,7 @@ object QueryAnalyzer extends  App {
 
   println(df.queryExecution.logical.maxRows)
 
-  println(session.time(session.sql("select * from maha where county='KINGS'").queryExecution.logical.maxRows))
+  println(session.time(session.sql("select * from maha where county='KINGS'").queryExecution.optimizedPlan.))
   println(session.time(session.sql("select * from maha where county='KINGS' ").rdd.countApprox(1000,0.9)))
   println(session.time(session.sql("select * from maha where county='KINGS'").count))
   println(session.time(session.sql("select * from maha where county='KINGS'").explain))
@@ -28,7 +28,9 @@ object QueryAnalyzer extends  App {
   println(session.time(session.sql("select * from maha where county='KINGS'").queryExecution.toStringWithStats))
   println(session.time(session.sql("select * from maha a,maha b where a.county=b.county and a.county='KINGS'").queryExecution.logical.toJSON))
 
-/*  val cnt = session.time(df.count().toDouble)
+/*
+  val cnt = session.time(df.count().toDouble)
+
 /*  println("Count "+cnt)
   println("Approx "+session.time(df.rdd.countApprox(1000,0.8)))*/
 
